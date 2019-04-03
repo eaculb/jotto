@@ -17,7 +17,10 @@ class Letter extends React.Component {
       className = 'letter'
     }
     return (
-      <button className={className}>
+      <button 
+        className={className}
+        onClick={() => {this.props.onLetterClick(this.props.value)}}
+      >
         {this.props.value}
       </button>
     );
@@ -29,7 +32,8 @@ class Guess extends React.Component {
     return (
       <Letter
        value={char}
-       status={this.props.letterStatus[char.charCodeAt()-65]}
+       status={this.props.letterStatus[charCodeSimple(char)]}
+       onLetterClick={(char) => {this.props.handleLetterClick(char)}}
       />
     );
   }
@@ -98,9 +102,27 @@ class Game extends React.Component {
           letters.push(<div><Letter 
                               value={String.fromCharCode(i)} 
                               status={this.state.letterStatus[i-charStart]}
+                              onLetterClick={(char) => {this.handleLetterClick(char)}}
                             /></div>)
         }
     return(letters)
+  }
+
+  handleLetterClick(char) {
+    console.log('click');
+    var currState = this.state.letterStatus[charCodeSimple(char)];
+    var newStatus = this.state.letterStatus.slice();
+    const index = charCodeSimple(char);
+    if (currState === true) {
+      newStatus[index] = null;
+    } else if (currState === false) {
+      newStatus[index] = true;
+    } else {
+      newStatus[index] = false;
+    }
+    this.setState({
+      letterStatus : newStatus
+    });
   }
 
   handleGuess(event, guess, input) {
@@ -127,6 +149,7 @@ class Game extends React.Component {
                           word={curr}
                           number={compareLetters(curr, this.state.word)}
                           letterStatus={this.state.letterStatus} 
+                          handleLetterClick={(char) => this.handleLetterClick(char)}
                           /></div>)
     }
     return(guesses)
@@ -175,6 +198,10 @@ function processGuess(guess, target) {
   } else {
     return compareLetters(guess, target);
   }
+}
+
+function charCodeSimple(char) {
+  return char.charCodeAt()-65;
 }
 
 // ===================================
