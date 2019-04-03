@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+button {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    width: 36px;
+    font-size: 24px;
+	text-transform: uppercase;
+	background: #fff;
+	border: hidden;
+	margin: 2px;
+}
+
+button:hover {
+  background-color: #ccc; 
+  color: white;
+}
+
+.letter-yes{
+	background: green;
+	color: white;
+}
+
+.letter-no{
+	background: red;
+	color: white;
+}
+
+.game {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.game-left {
+	background: #abcdef;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	flex-basis: 50%;
+}
+
+.game-right {
+	background: #123456;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: flex-start;
+	flex-basis: 40%;
+}
+
+.guesses {
+	display: flex;
+	flex-direction: column;
+	margin: 5px;
+}
+
+.guess {
+	flex-flow: column nowrap;
+	margin: 5px;
+}
+
+
+.confirmed-letters {
+	flex-direction: row;
+	justify-content: center;
+	text-transform: uppercase;
+}
+
+.guess-input {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
