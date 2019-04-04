@@ -25,7 +25,7 @@ button {
 	margin: 2px;
 }
 
-button:hover {
+.letter:hover {
   background-color: #ccc; 
   color: white;
 }
@@ -47,7 +47,6 @@ button:hover {
 }
 
 .game-left {
-	background: #abcdef;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -56,11 +55,10 @@ button:hover {
 }
 
 .game-right {
-	background: #123456;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
-	align-items: flex-start;
+	align-content: flex-start;
 	flex-basis: 40%;
 }
 

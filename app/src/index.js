@@ -156,6 +156,19 @@ class Game extends React.Component {
   }
 
   render() {
+    const mostRecent = this.state.guesses[this.state.guesses.length - 1];
+    const won = isMatch(this.state.word, mostRecent);
+
+    let bottom;
+    if (won){
+      bottom = "You guessed the word in " + this.state.guessNumber + " guesses!"
+    } else {
+      bottom = (
+            <GuessInput 
+              onSubmit={(event, guess, input) => this.handleGuess(event, guess, input)}
+            />
+      );
+    }
     return (
       <div className="game">
         <div className="game-left">
@@ -167,9 +180,7 @@ class Game extends React.Component {
             {this.renderGuesses()}
           </div>
           <div className="guess-input">
-            <GuessInput 
-              onSubmit={(event, guess, input) => this.handleGuess(event, guess, input)}
-            />
+            {bottom}
           </div>
         </div>
         <div className = "game-right">
@@ -202,6 +213,10 @@ function processGuess(guess, target) {
 
 function charCodeSimple(char) {
   return char.charCodeAt()-65;
+}
+
+function isMatch(word1, word2){
+  return (word1 === word2);
 }
 
 // ===================================
