@@ -42,6 +42,7 @@ button {
 
 .game {
 	display: flex;
+	height:100%;
 	flex-direction: row;
 	justify-content: space-around;
 }
@@ -52,14 +53,22 @@ button {
 	justify-content: flex-start;
 	align-items: center;
 	flex-basis: 50%;
+	background-color: #deeaec;
 }
 
 .game-right {
 	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	flex-basis: 40%;
+}
+
+.letter-pile {
+	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
 	align-content: flex-start;
-	flex-basis: 40%;
 }
 
 .guesses {

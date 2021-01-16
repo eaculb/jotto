@@ -2,11 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-
 const legalWords = require('./legalWords')
 
+// The letter button object. 
+//
+// Props:
+//  -value: The character value
+//  -status: Boolean (or null) representing whether the letter has
+//           been marked as a definite yes, no, or neither 
 class Letter extends React.Component {
-  render () {
+  render() {
     const status = this.props.status;
     var className = ''
     if (status === true) {
@@ -17,9 +22,9 @@ class Letter extends React.Component {
       className = 'letter'
     }
     return (
-      <button 
+      <button
         className={className}
-        onClick={() => {this.props.onLetterClick(this.props.value)}}
+        onClick={() => { this.props.onLetterClick(this.props.value) }}
       >
         {this.props.value}
       </button>
@@ -27,27 +32,33 @@ class Letter extends React.Component {
   }
 }
 
+// The guess object. 
+//
+// Props:
+//  -value: The guessed word
+//  -letterStatus: state array of letter statuses passed from game
+
 class Guess extends React.Component {
   renderLetter(char) {
     return (
       <Letter
-       value={char}
-       status={this.props.letterStatus[charCodeSimple(char)]}
-       onLetterClick={(char) => {this.props.handleLetterClick(char)}}
+        value={char}
+        status={this.props.letterStatus[charCodeSimple(char)]}
+        onLetterClick={(char) => { this.props.handleLetterClick(char) }}
       />
     );
   }
 
   render() {
-    const [c0,c1,c2,c3,c4] = this.props.word.toUpperCase();
+    const [c0, c1, c2, c3, c4] = this.props.word.toUpperCase();
     return (
       <div className="guess">
-      {this.renderLetter(c0)}
-      {this.renderLetter(c1)}
-      {this.renderLetter(c2)}
-      {this.renderLetter(c3)}
-      {this.renderLetter(c4)}
-      {this.props.number}
+        {this.renderLetter(c0)}
+        {this.renderLetter(c1)}
+        {this.renderLetter(c2)}
+        {this.renderLetter(c3)}
+        {this.renderLetter(c4)}
+        {this.props.number}
       </div>
     );
   }
@@ -56,26 +67,26 @@ class Guess extends React.Component {
 class GuessInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = { value: '' };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
   render() {
-    return(
+    return (
       <form onSubmit={(event) => this.props.onSubmit(event, this.state.value, this)}>
-          <div>
-          <input 
-            type="text" 
-            name="new-guess" 
-            value={this.state.value} 
+        <div>
+          <input
+            type="text"
+            name="new-guess"
+            value={this.state.value}
             onChange={this.handleChange}
           />
-          </div>
+        </div>
         <input type="submit" value="Guess!" />
       </form>
     )
@@ -84,32 +95,35 @@ class GuessInput extends React.Component {
 
 class Game extends React.Component {
   constructor(props) {
-    const word = legalWords[Math.floor(Math.random()*legalWords.length)];
+    const word = legalWords[Math.floor(Math.random() * legalWords.length)].toUpperCase();
     super(props);
     this.state = {
-      word : word,
-      guesses : [],
-      guessNumber : 0,
-      letterStatus : Array(26).fill(null),
+      word: word,
+      guesses: [],
+      guessNumber: 0,
+      letterStatus: Array(26).fill(null),
+      guessed: Array(26).fill(false),
     };
   };
 
-  renderAlphabet() {
+  renderAlphabet(guessed) {
     var letters = [];
     const charStart = 65;
     const charEnd = 91;
     for (var i = charStart; i < charEnd; i++) {
-          letters.push(<div><Letter 
-                              value={String.fromCharCode(i)} 
-                              status={this.state.letterStatus[i-charStart]}
-                              onLetterClick={(char) => {this.handleLetterClick(char)}}
-                            /></div>)
-        }
-    return(letters)
+      if (this.state.guessed[i - charStart] === guessed) {
+        let val = String.fromCharCode(i);
+        letters.push(<div><Letter
+          value={val}
+          status={this.state.letterStatus[i - charStart]}
+          onLetterClick={(char) => { this.handleLetterClick(char) }}
+        /></div>)
+      }
+    }
+    return (letters)
   }
 
   handleLetterClick(char) {
-    console.log('click');
     var currState = this.state.letterStatus[charCodeSimple(char)];
     var newStatus = this.state.letterStatus.slice();
     const index = charCodeSimple(char);
@@ -121,21 +135,25 @@ class Game extends React.Component {
       newStatus[index] = false;
     }
     this.setState({
-      letterStatus : newStatus
+      letterStatus: newStatus
     });
   }
 
   handleGuess(event, guess, input) {
-    console.log(guess)
     var overlap = processGuess(guess, this.state.word);
-    if (overlap < 0){
+    if (overlap < 0) {
       alert('\'' + guess + '\' is not a valid Jotto word.')
     } else {
-      console.log(overlap)
+      let currGuessed = this.state.guessed.slice();
+      let upperGuess = guess.toUpperCase()
+      for (let i = 0; i < upperGuess.length; i++) {
+        currGuessed[charCodeSimple(upperGuess[i])] = true;
+      }
       this.setState({
-        guesses : this.state.guesses.concat([guess]),
-        guessNumber : this.state.guessNumber + 1
-      })
+        guesses: this.state.guesses.concat([guess.toUpperCase()]),
+        guessNumber: this.state.guessNumber + 1,
+        guessed: currGuessed
+      });
     }
     input.state.value = ''
     event.preventDefault();
@@ -145,14 +163,14 @@ class Game extends React.Component {
     var guesses = []
     for (let i = 0; i < this.state.guesses.length; i++) {
       let curr = this.state.guesses[i]
-      guesses.push(<div><Guess 
-                          word={curr}
-                          number={compareLetters(curr, this.state.word)}
-                          letterStatus={this.state.letterStatus} 
-                          handleLetterClick={(char) => this.handleLetterClick(char)}
-                          /></div>)
+      guesses.push(<div><Guess
+        word={curr}
+        number={compareLetters(curr, this.state.word)}
+        letterStatus={this.state.letterStatus}
+        handleLetterClick={(char) => this.handleLetterClick(char)}
+      /></div>)
     }
-    return(guesses)
+    return (guesses)
   }
 
   render() {
@@ -160,20 +178,20 @@ class Game extends React.Component {
     const won = isMatch(this.state.word, mostRecent);
 
     let bottom;
-    if (won){
+    if (won) {
       bottom = "You guessed the word in " + this.state.guessNumber + " guesses!"
     } else {
       bottom = (
-            <GuessInput 
-              onSubmit={(event, guess, input) => this.handleGuess(event, guess, input)}
-            />
+        <GuessInput
+          onSubmit={(event, guess, input) => this.handleGuess(event, guess, input)}
+        />
       );
     }
     return (
       <div className="game">
         <div className="game-left">
           <div className="confirmed-letters">
-            
+
             {/*TODO: confirmed letters*/}
           </div>
           <div className="guesses">
@@ -183,8 +201,14 @@ class Game extends React.Component {
             {bottom}
           </div>
         </div>
-        <div className = "game-right">
-          {this.renderAlphabet()}
+        <div className="game-right">
+          <div className="letter-pile">
+            {this.renderAlphabet(false)}
+          </div>
+          <h3>Guessed Letters:</h3>
+          <div className="letter-pile">
+            {this.renderAlphabet(true)}
+          </div>
         </div>
       </div>
     );
@@ -195,7 +219,7 @@ function compareLetters(word1, word2) {
   var total = 0;
   for (var i = 0; i < word1.length; i++) {
     for (var j = 0; j < word2.length; j++) {
-      if (word1[i] === word2[j]){
+      if (word1[i] === word2[j]) {
         total++;
       }
     }
@@ -204,7 +228,7 @@ function compareLetters(word1, word2) {
 }
 
 function processGuess(guess, target) {
-  if (guess.length > 5 || !legalWords.includes(guess)){
+  if (guess.length > 5 || !legalWords.includes(guess.toLowerCase())) {
     return -1;
   } else {
     return compareLetters(guess, target);
@@ -212,10 +236,10 @@ function processGuess(guess, target) {
 }
 
 function charCodeSimple(char) {
-  return char.charCodeAt()-65;
+  return char.charCodeAt() - 65;
 }
 
-function isMatch(word1, word2){
+function isMatch(word1, word2) {
   return (word1 === word2);
 }
 

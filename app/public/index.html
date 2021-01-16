@@ -22,20 +22,67 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link rel="stylesheet" href="main_style.css">
     <title>Jotto</title>
   </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  <body style="height:100%">
+    <div id="main-container" style="height:100%">
+      <noscript>You need to enable JavaScript to run this app.</noscript>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+      <!-- Trigger/Open The Modal -->
+      <button class="instruction-button" id="myBtn">Instructions</button>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            <h1>Jotto in React</h1>
+            <p>This project was created to explore working with React. It emulates a simple game, Jotto.</p>
+
+            <h3>Rules of Jotto</h3>
+            <p>"Legal Jotto words" are five-letter words with no repeating letters and that do not end in "s." The computer will select a random legal Jotto word as a target. The user can make guesses consisting of other legal Jotto words. The program will inform the user how many letters are in common between the target word and guess word (independent of position). The goal is to guess the target word in the least possible number of guesses.</p>
+
+            <h3>Using the Interface</h3>
+            <p>To aid the player, letters can be marked as "sure no" (red) by clicking once and "sure yes" (green) by clicking twice. To reset, click a third time.</p>
+        </div>
+
+      </div>
+
+      <div style="height:100%"id="root"></div>
+    </div>
+
   </body>
+
+  <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAHDb918RkwdjB2rt6ehk5SHQd-IGKID5g",
+      authDomain: "jotto-eac.firebaseapp.com",
+      databaseURL: "https://jotto-eac.firebaseio.com",
+      projectId: "jotto-eac",
+      storageBucket: "jotto-eac.appspot.com",
+      messagingSenderId: "861521937913"
+    };
+    firebase.initializeApp(config);
+
+    // Note: From w3schools' modal tutorial:
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
 </html>
