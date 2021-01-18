@@ -1,0 +1,151 @@
+@use "sass:color";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+$background-color: #deeaec;
+$game-width: 48rem;
+$column-padding: 2rem;
+
+button,
+input {
+  outline: none;
+}
+
+.letter {
+  background-color: white;
+  border: none;
+  font-size: 22px;
+  margin: 0 1px;
+  width: 1.6rem;
+
+  &:hover,
+  :focus {
+    background-color: color.scale($background-color, $lightness: 15%);
+  }
+}
+
+.letter-yes {
+  background: green;
+  color: white;
+}
+
+.letter-no {
+  background: red;
+  color: white;
+}
+
+.container {
+  padding: 2rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+
+.game {
+  justify-content: center;
+  display: flex;
+  flex: 1 1;
+  max-width: $game-width;
+}
+
+.game-left {
+  display: flex;
+  flex: initial;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-left: 2px solid $background-color;
+  border-right: 2px solid $background-color;
+  padding: 0 $column-padding;
+}
+
+.game-right {
+  min-width: 24px;
+  display: flex;
+  flex: initial;
+  flex-direction: column;
+  padding: 0 $column-padding;
+}
+
+.letter-pile {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.guesses {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.guess {
+  display: flex;
+  align-content: baseline;
+  flex-flow: row nowrap;
+  margin: 5px;
+}
+
+.overlap-ct {
+  margin-left: 10px;
+  font-size: 22px;
+}
+
+.confirmed-letters {
+  flex-direction: row;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.interact {
+  width: 18rem;
+}
+
+.guess-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 18px;
+  padding: 5px;
+  margin-bottom: 5px;
+  border: 2px solid color.scale($background-color, $lightness: -25%);
+  border-radius: 8px;
+  &:hover,
+  :focus {
+    border: 2px solid color.scale($background-color, $lightness: -65%);
+  }
+}
+
+.submit-button {
+  width: 100%;
+  font-size: 18px;
+  padding: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  border: 2px solid color.scale($background-color, $lightness: -25%);
+  border-radius: 8px;
+  background-color: $background-color;
+  &:hover,
+  :focus {
+    border: 2px solid color.scale($background-color, $lightness: -65%);
+  }
+}
+
+.sidebar {
+  width: 24rem;
+  padding: 0 $column-padding;
+}
+
+.error {
+  color: red;
+}
