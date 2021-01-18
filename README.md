@@ -8,7 +8,7 @@ This project was created to explore working with React. It emulates a simple gam
 
 ## Getting started
 
-The live app lives at https://jotto-eac.firebaseapp.com/.
+The live app lives at https://jotto.eaculb.co/.
 For the development version,
 
 1. Clone this repo: `git@github.com:eaculb/jotto.git`
