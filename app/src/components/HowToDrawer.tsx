@@ -34,7 +34,7 @@ export default function HowToDrawer() {
         }}
       >
         <Stack sx={{ px: 3, py: 2 }} spacing={2}>
-          <Typography variant="h4">Rules of Jotto</Typography>
+          <Typography variant="subtitle1">Rules of Jotto</Typography>
           <Typography variant="body1">
             "Legal Jotto words" are five-letter words with no repeating letters
             and that do not end in "s." The computer will select a random legal
@@ -44,7 +44,7 @@ export default function HowToDrawer() {
             (independent of position). The goal is to guess the target word in
             the least possible number of guesses.
           </Typography>
-          <Typography variant="h4">Using the Interface</Typography>
+          <Typography variant="subtitle1">Using the Interface</Typography>
           <Typography variant="body1">
             Letters can be marked as "sure no" (red) by clicking once and "sure
             yes" (green) by clicking twice. To reset, click a third time.
