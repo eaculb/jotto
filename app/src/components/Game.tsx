@@ -1,134 +1,60 @@
-import React, { useState, useMemo } from "react";
+import React from "react";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
 
-import Guess from "./Guess";
-import GuessInput from "./GuessInput";
-import Sidebar from "./Sidebar";
-import { processGuess, indexFromChar, legalWords } from "../utils";
-import LetterGroup from "./LetterGroup";
-import ResetGame from "./ResetGame";
-
-export class LetterStatus {
-  guessed: boolean;
-  status?: boolean;
-
-  constructor() {
-    this.guessed = false;
-  }
-
-  getNextStatus() {
-    if (this.status === true) {
-      return undefined;
-    } else if (this.status === false) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-
-function generateWord() {
-  return legalWords[
-    Math.floor(Math.random() * legalWords.length)
-  ].toUpperCase();
-}
-
-interface GuessEntry {
-  guess: string;
-  overlap: number;
-}
+import theme from "../theme";
+import GameProvider from "../contexts/GameProvider";
+import Menu from "../components/Menu";
+import GuessArea from "./GuessArea";
+import LetterArea from "./LetterArea";
 
 export default function Game() {
-  let initialLetterStatuses: Array<LetterStatus> = [];
-  for (let i = 0; i < 26; i++) {
-    initialLetterStatuses.push(new LetterStatus());
-  }
-
-  const [word, setWord] = useState<string>(generateWord());
-  const [guesses, setGuesses] = useState<GuessEntry[]>([]);
-  const [letterStatuses, setLetterStatuses] = useState<LetterStatus[]>(
-    initialLetterStatuses
-  );
-  const [error, setError] = useState<string | null>(null);
-
-  const mostRecentGuess = useMemo(() => guesses[guesses.length - 1], [guesses]);
-
-  const handleLetterClick = (char: string) => {
-    const index = indexFromChar(char);
-    var newStatus = letterStatuses.slice();
-    newStatus[index].status = letterStatuses[index].getNextStatus();
-    setLetterStatuses(newStatus);
-  };
-
-  const handleGuess = (guess: string) => {
-    const guessUpper = guess.toUpperCase();
-    const { overlap, error: guessError } = processGuess(guessUpper, word);
-    if (guessError) {
-      setError(guessError);
-    } else {
-      setError(null);
-      let currStatuses = letterStatuses.slice();
-      guess.split("").forEach((letter) => {
-        currStatuses[indexFromChar(letter.toUpperCase())].guessed = true;
-        setLetterStatuses(currStatuses);
-        setGuesses([...guesses, { guess: guessUpper, overlap }]);
-      });
-    }
-  };
-
-  const reset = () => {
-    setWord(generateWord());
-    setGuesses([]);
-    setLetterStatuses(initialLetterStatuses);
-  };
-
   return (
-    <div className="container">
-      <Sidebar />
-      <div className="game">
-        <div className="game-left">
-          <h2>Your Guesses</h2>
-          <div className="confirmed-letters">{/*TODO: confirmed letters*/}</div>
-          <div className="guesses">
-            {guesses.map(({ guess, overlap }, ix) => (
-              <Guess
-                key={ix}
-                word={guess}
-                overlapCount={overlap}
-                letterStatuses={letterStatuses}
-                handleLetterClick={handleLetterClick}
-              />
-            ))}
-          </div>
-          <div className="interact">
-            {word === mostRecentGuess?.guess ? (
-              <ResetGame numGuesses={guesses.length} onReset={() => reset()} />
-            ) : (
-              <>
-                <GuessInput onSubmit={(guess) => handleGuess(guess)} />
-                {error && <div className="error">{error}</div>}
-              </>
-            )}
-          </div>
-        </div>
-        <div className="game-right">
-          <h3>Unused Letters:</h3>
-          <div className="letter-pile">
-            <LetterGroup
-              letterStatuses={letterStatuses}
-              shouldBeGuessed={false}
-              handleClick={handleLetterClick}
-            />
-          </div>
-          <h3>Used Letters:</h3>
-          <div className="letter-pile">
-            <LetterGroup
-              letterStatuses={letterStatuses}
-              shouldBeGuessed={true}
-              handleClick={handleLetterClick}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <GameProvider>
+        <Box sx={{ display: "flex", position: "relative", minHeight: "100vh" }}>
+          <Box
+            sx={{
+              backgroundColor: theme.palette.background.default,
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              zIndex: (theme) => theme.zIndex.drawer + 1,
+            }}
+          >
+            <Menu />
+          </Box>
+          <Box
+            sx={{
+              position: "absolute",
+              top: theme.appBarHeight,
+              width: "100%",
+              pt: 1,
+              height: `calc(100vh - ${theme.appBarHeight}px)`,
+              display: "flex",
+              justifyContent: { xs: "stretch", md: "center" },
+            }}
+          >
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={2}
+              sx={{
+                maxHeight: {
+                  xs: "none",
+                  md: `calc(100vh - ${theme.appBarHeight}px)`,
+                },
+              }}
+            >
+              <LetterArea />
+              <GuessArea />
+            </Stack>
+          </Box>
+        </Box>
+      </GameProvider>
+    </ThemeProvider>
   );
 }

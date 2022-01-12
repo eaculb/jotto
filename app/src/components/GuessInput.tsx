@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 
-interface Props {
-  onSubmit: (guess: string) => void;
-}
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
-export default function GuessInput({ onSubmit }: Props) {
+import { GameContextValue, useGame } from "../contexts/GameProvider";
+
+export default function GuessInput() {
+  // @ts-ignore
+  const { addGuess: onSubmit, guesses, revealed, target, success }: GameContextValue = useGame();
+
   const [value, setValue] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -16,18 +21,46 @@ export default function GuessInput({ onSubmit }: Props) {
     setValue("");
   };
 
+  if (revealed) {
+    return (
+      <>
+        <Typography variant="subtitle1">
+          {`The word was ${target.toUpperCase()}.`}
+        </Typography>
+        <Typography variant="body1" sx={{mb: 3}}>
+          Better luck next time!
+        </Typography>
+      </>
+    );
+  }
+
+  if (success) {
+    return (
+      <>
+        <Typography variant="subtitle1">
+          Success!
+        </Typography>
+        <Typography variant="body1" sx={{mb: 3}}>
+          {`You successfully guessed ${target} after ${guesses.length} guesses.`}
+        </Typography>
+      </>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        className="guess-input"
-        type="text"
-        name="new-guess"
+      <TextField
+        fullWidth
+        hiddenLabel
+        id="guess-input"
+        label="Make a guess"
         value={value}
         onChange={handleChange}
+        size="small"
       />
-      <button type="submit" className="submit-button">
-        Guess
-      </button>
+      <Button fullWidth sx={{ my: 2 }} type="submit">
+        Submit
+      </Button>
     </form>
   );
 }

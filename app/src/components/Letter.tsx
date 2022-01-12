@@ -1,27 +1,35 @@
-import React from "react";
+import React, { useMemo } from "react";
+import Button from "@mui/material/Button";
+
+import { GameContextValue, useGame } from "../contexts/GameProvider";
+import { indexFromChar } from "../utils";
 
 interface Props {
   value: string;
-  onLetterClick: (char: string) => void;
-  status?: boolean;
 }
 
-export default function Letter({ status, onLetterClick, value, ...props }: Props) {
-  var className = "letter";
-  if (status === true) {
-    className += " letter-yes";
-  } else if (status === false) {
-    className += " letter-no";
-  }
+export default function Letter({ value }: Props) {
+  // @ts-ignore
+  const { letterStatuses, toggleLetter }: GameContextValue = useGame();
+  const status = useMemo(
+    () => letterStatuses[indexFromChar(value)].status,
+    [letterStatuses, value]
+  );
+
   return (
-    <button
-      {...props}
-      className={className}
-      onClick={() => {
-        onLetterClick(value);
+    <Button
+      sx={{
+        height: { xs: "2.4rem", md: "3.2rem" },
+        width: { xs: "2.4rem", md: "3.2rem" },
+        borderRadius: 0,
       }}
+      onClick={() => toggleLetter(value)}
+      color={
+        status === true ? "info" : status === false ? "warning" : "secondary"
+      }
+      variant={status === true || status === false ? "contained" : "text"}
     >
       {value}
-    </button>
+    </Button>
   );
 }

@@ -16,7 +16,7 @@ interface GuessResult {
 }
 
 export function processGuess(guess: string, target: string): GuessResult {
-  if (guess.length > 5) {
+  if (guess.length !== 5) {
     return {
       overlap: -1,
       error: "Guesses must be 5 letters long.",

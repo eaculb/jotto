@@ -1,35 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 import Letter from "./Letter";
-import { LetterStatus } from "./Game";
 import { charFromIndex } from "../utils";
+import { useGame, GameContextValue } from "../contexts/GameProvider";
 
 interface Props {
-  letterStatuses: LetterStatus[];
   shouldBeGuessed: boolean;
-  handleClick: (letter: string) => void;
+  title: string;
 }
 
-export default function LetterGroup({
-  letterStatuses,
-  shouldBeGuessed,
-  handleClick,
-}: Props) {
+export default function LetterGroup({ shouldBeGuessed, title }: Props) {
+  // @ts-ignore
+  const { letterStatuses }: GameContextValue = useGame();
+  useEffect(() => {
+    console.log(letterStatuses);
+  }, [letterStatuses]);
   return (
     <>
-      {letterStatuses.map(({ status, guessed }, ix) => {
-        const char = charFromIndex(ix);
-        return guessed === shouldBeGuessed ? (
-          <Letter
-            key={char}
-            value={char}
-            status={status}
-            onLetterClick={() => handleClick(char)}
-          />
-        ) : (
-          <></>
-        );
-      })}
+      <Grid item xs={12} md={6} sx={{ padding: 2 }}>
+        <Typography variant="subtitle2">{title}</Typography>
+
+        {letterStatuses.map(({ status, guessed }, ix) => {
+          const char = charFromIndex(ix);
+          return guessed === shouldBeGuessed ? (
+            <Letter key={char} value={char} />
+          ) : (
+            <></>
+          );
+        })}
+      </Grid>
     </>
   );
 }
