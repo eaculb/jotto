@@ -9,7 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import theme from "../theme";
 
-export default function Menu() {
+export default function HowToDrawer() {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const toggleDrawer = useCallback(
     () => setDrawerOpen(!drawerOpen),
@@ -17,17 +17,10 @@ export default function Menu() {
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Stack
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="center"
-        sx={{ height: theme.appBarHeight, px: 3, py: "auto" }}
-      >
-        <Button variant="text" startIcon={<MenuIcon />} onClick={toggleDrawer}>
-          How To Play
-        </Button>
-      </Stack>
+    <>
+      <Button variant="text" startIcon={<MenuIcon />} onClick={toggleDrawer}>
+        How To Play
+      </Button>
       <Drawer
         anchor="top"
         open={drawerOpen}
@@ -58,6 +51,6 @@ export default function Menu() {
           </Typography>
         </Stack>
       </Drawer>
-    </Box>
+    </>
   );
 }

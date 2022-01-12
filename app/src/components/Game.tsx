@@ -6,7 +6,8 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import theme from "../theme";
 import GameProvider from "../contexts/GameProvider";
-import Menu from "../components/Menu";
+import HowToDrawer from "./HowToDrawer";
+import MeatballMenu from "./MeatballMenu";
 import GuessArea from "./GuessArea";
 import LetterArea from "./LetterArea";
 
@@ -16,18 +17,24 @@ export default function Game() {
       <CssBaseline />
       <GameProvider>
         <Box sx={{ display: "flex", position: "relative", minHeight: "100vh" }}>
-          <Box
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
             sx={{
               backgroundColor: theme.palette.background.default,
               position: "fixed",
               top: 0,
               left: 0,
               width: "100%",
+              height: theme.appBarHeight,
+              px: 3,
               zIndex: (theme) => theme.zIndex.drawer + 1,
             }}
           >
-            <Menu />
-          </Box>
+            <HowToDrawer />
+            <MeatballMenu />
+          </Stack>
           <Box
             sx={{
               position: "absolute",

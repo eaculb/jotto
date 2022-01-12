@@ -20,9 +20,8 @@ export default function LetterGroup({ shouldBeGuessed, title }: Props) {
   }, [letterStatuses]);
   return (
     <>
-      <Grid item xs={12} md={6} sx={{ padding: 2 }}>
+      <Grid item xs={12} sm={6} sx={{ padding: 2 }}>
         <Typography variant="subtitle2">{title}</Typography>
-
         {letterStatuses.map(({ status, guessed }, ix) => {
           const char = charFromIndex(ix);
           return guessed === shouldBeGuessed ? (

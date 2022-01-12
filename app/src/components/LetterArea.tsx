@@ -1,17 +1,16 @@
 import React from "react";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
 import LetterGroup from "./LetterGroup";
 import GuessInput from "./GuessInput";
 import { useGame } from "../contexts/GameProvider";
+import ExtraControls from "./ExtraControls";
 
 export default function LetterArea() {
   // @ts-ignore
-  const { reset, clearAnnotations, globalError, revealed, setRevealed } =
-    useGame();
+  const { globalError } = useGame();
   return (
     <Box
       sx={{
@@ -23,33 +22,13 @@ export default function LetterArea() {
           <GuessInput />
           {globalError && <Alert severity="error">{globalError}</Alert>}
         </Grid>
-        <Grid item xs={12} md={6} sx={{ px: 2 }}>
-          <Button
-            variant="outlined"
-            disabled={revealed}
-            fullWidth
-            sx={{ mb: 2 }}
-            onClick={clearAnnotations}
-          >
-            Clear Annotations
-          </Button>
-          <Button
-            variant="outlined"
-            fullWidth
-            sx={{ mb: 2 }}
-            onClick={() => setRevealed(true)}
-            disabled={revealed}
-          >
-            Reveal Word
-          </Button>
-          <Button
-            variant={revealed ? "contained" : "outlined"}
-            fullWidth
-            sx={{ mb: 2 }}
-            onClick={reset}
-          >
-            Reset
-          </Button>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ px: 2, display: { xs: "none", md: "inherit" } }}
+        >
+          <ExtraControls />
         </Grid>
         <LetterGroup title="Unused Letters" shouldBeGuessed={false} />
         <LetterGroup title="Used Letters" shouldBeGuessed={true} />
