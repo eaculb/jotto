@@ -2,3 +2,4 @@ app/node_modules/
 getLegalWords.py
 legal-jotto-words.txt
 sgb-words.txt
+app/build/
