@@ -7,13 +7,23 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#000000" />
-    <link rel="stylesheet" href="main_style.css">
+    <meta property="og:url" content="http://jotto.eaculb.co" />
+    <meta property="og:title" content="Jotto: A word game of logical deduction" />
+    <meta
+      property="og:description"
+      content="Play jotto online!"
+    />
+    <meta
+      property="og:image"
+      content="%PUBLIC_URL%/social_card.png"
+    />
+    <link rel="stylesheet" href="main_style.css" />
     <title>Jotto</title>
   </head>
-  <body style="height:100%">
-    <div id="main-container" style="height:100%">
+  <body style="height: 100%">
+    <div id="main-container" style="height: 100%">
       <noscript>You need to enable JavaScript to run this app.</noscript>
-      <div style="height:100%"id="root"></div>
+      <div style="height: 100%" id="root"></div>
     </div>
   </body>
   <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
@@ -25,7 +35,7 @@
       databaseURL: "https://jotto-eac.firebaseio.com",
       projectId: "jotto-eac",
       storageBucket: "jotto-eac.appspot.com",
-      messagingSenderId: "861521937913"
+      messagingSenderId: "861521937913",
     };
     firebase.initializeApp(config);
   </script>
