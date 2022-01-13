@@ -9,7 +9,6 @@ import { useGame } from "../contexts/GameProvider";
 import ExtraControls from "./ExtraControls";
 
 export default function LetterArea() {
-  // @ts-ignore
   const { globalError } = useGame();
   return (
     <Box

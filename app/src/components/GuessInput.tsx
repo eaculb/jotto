@@ -7,8 +7,13 @@ import Typography from "@mui/material/Typography";
 import { GameContextValue, useGame } from "../contexts/GameProvider";
 
 export default function GuessInput() {
-  // @ts-ignore
-  const { addGuess: onSubmit, guesses, revealed, target, success }: GameContextValue = useGame();
+  const {
+    addGuess: onSubmit,
+    guesses,
+    revealed,
+    target,
+    success,
+  }: GameContextValue = useGame();
 
   const [value, setValue] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +32,7 @@ export default function GuessInput() {
         <Typography variant="subtitle1">
           {`The word was ${target.toUpperCase()}.`}
         </Typography>
-        <Typography variant="body1" sx={{mb: 3}}>
+        <Typography variant="body1" sx={{ mb: 3 }}>
           Better luck next time!
         </Typography>
       </>
@@ -37,10 +42,8 @@ export default function GuessInput() {
   if (success) {
     return (
       <>
-        <Typography variant="subtitle1">
-          Success!
-        </Typography>
-        <Typography variant="body1" sx={{mb: 3}}>
+        <Typography variant="subtitle1">Success!</Typography>
+        <Typography variant="body1" sx={{ mb: 3 }}>
           {`You successfully guessed ${target} after ${guesses.length} guesses.`}
         </Typography>
       </>

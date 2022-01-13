@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default function Letter({ value }: Props) {
-  // @ts-ignore
   const { letterStatuses, toggleLetter }: GameContextValue = useGame();
   const status = useMemo(
     () => letterStatuses[indexFromChar(value)].status,

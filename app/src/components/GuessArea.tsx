@@ -7,7 +7,6 @@ import Guess from "./Guess";
 import { GameContextValue, useGame } from "../contexts/GameProvider";
 
 export default function GuessArea() {
-  // @ts-ignore
   const { guesses }: GameContextValue = useGame();
   return (
     <Box

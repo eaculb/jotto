@@ -1,9 +1,7 @@
 import React, { useCallback, useState } from "react";
 
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
-import Stack from "@mui/material/Stack";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 import ExtraControls from "./ExtraControls";

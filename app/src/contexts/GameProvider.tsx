@@ -137,6 +137,10 @@ export default function GameProvider({
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 }
 
-export const useGame = () => {
-  return useContext(GameContext);
+export const useGame = (): GameContextValue => {
+  const game = useContext(GameContext);
+  if (game === null) {
+    throw Error("Context value not provided!");
+  }
+  return game;
 };
