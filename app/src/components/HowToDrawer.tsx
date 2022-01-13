@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from "react";
 
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import theme from "../theme";
+import theme from "src/lib/theme";
 
 export default function HowToDrawer() {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);

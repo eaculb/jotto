@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-import { GameContextValue, useGame } from "../contexts/GameProvider";
+import { GameContextValue, useGame } from "src/contexts/GameProvider";
 
 export default function GuessInput() {
   const {

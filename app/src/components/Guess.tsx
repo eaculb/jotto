@@ -3,7 +3,7 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import Letter from "./Letter";
+import Letter from "src/components/Letter";
 
 interface Props {
   word: string;

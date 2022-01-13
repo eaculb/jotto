@@ -3,10 +3,10 @@ import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-import LetterGroup from "./LetterGroup";
-import GuessInput from "./GuessInput";
-import { useGame } from "../contexts/GameProvider";
-import ExtraControls from "./ExtraControls";
+import LetterGroup from "src/components/LetterGroup";
+import GuessInput from "src/components/GuessInput";
+import { useGame } from "src/contexts/GameProvider";
+import ExtraControls from "src/components/ExtraControls";
 
 export default function LetterArea() {
   const { globalError } = useGame();

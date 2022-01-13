@@ -4,8 +4,8 @@ import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-import ExtraControls from "./ExtraControls";
-import theme from "../theme";
+import ExtraControls from "src/components/ExtraControls";
+import theme from "src/lib/theme";
 
 export default function MeatballMenu() {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);

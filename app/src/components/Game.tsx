@@ -4,12 +4,12 @@ import Stack from "@mui/material/Stack";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 
-import theme from "../theme";
-import GameProvider from "../contexts/GameProvider";
-import HowToDrawer from "./HowToDrawer";
-import MeatballMenu from "./MeatballMenu";
-import GuessArea from "./GuessArea";
-import LetterArea from "./LetterArea";
+import theme from "src/lib/theme";
+import GameProvider from "src/contexts/GameProvider";
+import HowToDrawer from "src/components/HowToDrawer";
+import MeatballMenu from "src/components/MeatballMenu";
+import GuessArea from "src/components/GuessArea";
+import LetterArea from "src/components/LetterArea";
 
 export default function Game() {
   return (

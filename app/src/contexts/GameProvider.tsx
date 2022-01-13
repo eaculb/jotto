@@ -1,31 +1,18 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { createContext, useContext, useState, useMemo } from "react";
 import { range } from "lodash";
 
-import { processGuess, indexFromChar, legalWords } from "../utils";
+import { processGuess, indexFromChar, legalWords } from "src/lib/utils";
+import { useLocalStorage } from "src/lib/useLocalStorage";
 
-class LetterStatus {
+export enum Status {
+  DEFAULT = 0,
+  OUT = 1,
+  IN = 2,
+}
+
+interface LetterStatus {
   guessed: boolean;
-  status?: boolean;
-
-  constructor() {
-    this.guessed = false;
-  }
-
-  getNextStatus() {
-    if (this.status === true) {
-      return undefined;
-    } else if (this.status === false) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  status: Status;
 }
 
 interface GuessEntry {
@@ -54,53 +41,56 @@ function generateWord() {
 }
 
 function useProvideGame(): GameContextValue {
-  const [target, setTarget] = useState<string>(generateWord());
+  const [target, setTarget] = useLocalStorage<string>("tgt", generateWord);
   const [globalError, setGlobalError] = useState<string | null>(null);
 
-  const initialLetterStatuses = range(0, 26).map((_i) => new LetterStatus());
-  const [letterStatuses, setLetterStatuses] = useState<LetterStatus[]>(
+  const initialLetterStatuses = range(0, 26).map((_i) => ({
+    guessed: false,
+    status: Status.DEFAULT,
+  }));
+  const [letterStatuses, setLetterStatuses] = useLocalStorage<LetterStatus[]>(
+    "lts",
     initialLetterStatuses
   );
 
-  const [guesses, setGuesses] = useState<GuessEntry[]>([]);
+  const [guesses, setGuesses] = useLocalStorage<GuessEntry[]>("gs", []);
   const success = useMemo(
     () => guesses.length > 0 && guesses[guesses.length - 1].guess === target,
     [guesses, target]
   );
-  const addGuess = useCallback(
-    (guess: string) => {
-      const guessUpper = guess.toUpperCase();
-      const { overlap, error: guessError } = processGuess(guessUpper, target);
-      if (guessError) {
-        setGlobalError(guessError);
-      } else {
-        setGlobalError(null);
-        // copy current statuses
-        let currStatuses = letterStatuses.slice();
-        guess.split("").forEach((letter) => {
-          currStatuses[indexFromChar(letter.toUpperCase())].guessed = true;
-          setLetterStatuses(currStatuses);
-          setGuesses([...guesses, { guess: guessUpper, overlap }]);
-        });
-      }
-    },
-    [target, guesses, setGuesses, letterStatuses, setGlobalError]
-  );
+
+  const addGuess = (guess: string) => {
+    const guessUpper = guess.toUpperCase();
+    const { overlap, error: guessError } = processGuess(guessUpper, target);
+    if (guessError) {
+      setGlobalError(guessError);
+    } else {
+      setGlobalError(null);
+      // copy current statuses
+      let currStatuses = letterStatuses.slice();
+      guess.split("").forEach((letter) => {
+        currStatuses[indexFromChar(letter.toUpperCase())].guessed = true;
+        setLetterStatuses(currStatuses);
+        setGuesses([...guesses, { guess: guessUpper, overlap }]);
+      });
+    }
+  };
 
   const toggleLetter = (char: string) => {
     const index = indexFromChar(char);
     var newStatus = letterStatuses.slice();
-    newStatus[index].status = letterStatuses[index].getNextStatus();
+    const curr = letterStatuses[index];
+    newStatus[index].status = (curr.status + 1) % 3;
     setLetterStatuses(newStatus);
   };
 
   const clearAnnotations = () => {
     const newLetterStatuses = letterStatuses.slice();
-    newLetterStatuses.forEach((entry) => (entry.status = undefined));
+    newLetterStatuses.forEach((entry) => (entry.status = Status.DEFAULT));
     setLetterStatuses(newLetterStatuses);
   };
 
-  const [revealed, setRevealed] = useState<boolean>(false);
+  const [revealed, setRevealed] = useLocalStorage<boolean>("rv", false);
 
   const reset = () => {
     const newWord = generateWord();

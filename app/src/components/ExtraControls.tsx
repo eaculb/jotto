@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
-import { useGame } from "../contexts/GameProvider";
+import { useGame } from "src/contexts/GameProvider";
 
 export default function ExtraControls() {
   const { reset, clearAnnotations, revealed, setRevealed, success } = useGame();
@@ -12,7 +12,7 @@ export default function ExtraControls() {
     <Stack direction="column" sx={{ width: "100%" }}>
       <Button
         variant="outlined"
-        disabled={revealed}
+        disabled={gameOver}
         fullWidth
         sx={{ mb: 2 }}
         onClick={clearAnnotations}

@@ -3,9 +3,9 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import Letter from "./Letter";
-import { charFromIndex } from "../utils";
-import { useGame, GameContextValue } from "../contexts/GameProvider";
+import Letter from "src/components/Letter";
+import { useGame, GameContextValue } from "src/contexts/GameProvider";
+import { charFromIndex } from "src/lib/utils";
 
 interface Props {
   shouldBeGuessed: boolean;

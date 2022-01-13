@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import Button from "@mui/material/Button";
 
-import { GameContextValue, useGame } from "../contexts/GameProvider";
-import { indexFromChar } from "../utils";
+import { Status, GameContextValue, useGame } from "src/contexts/GameProvider";
+import { indexFromChar } from "src/lib/utils";
 
 interface Props {
   value: string;
@@ -24,9 +24,15 @@ export default function Letter({ value }: Props) {
       }}
       onClick={() => toggleLetter(value)}
       color={
-        status === true ? "info" : status === false ? "warning" : "secondary"
+        status === Status.IN
+          ? "info"
+          : status === Status.OUT
+          ? "warning"
+          : "secondary"
       }
-      variant={status === true || status === false ? "contained" : "text"}
+      variant={
+        status === Status.IN || status === Status.OUT ? "contained" : "text"
+      }
     >
       {value}
     </Button>

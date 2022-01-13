@@ -1,10 +1,10 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import theme from "../theme";
+import theme from "src/lib/theme";
 
-import Guess from "./Guess";
-import { GameContextValue, useGame } from "../contexts/GameProvider";
+import Guess from "src/components/Guess";
+import { GameContextValue, useGame } from "src/contexts/GameProvider";
 
 export default function GuessArea() {
   const { guesses }: GameContextValue = useGame();
