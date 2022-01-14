@@ -42,7 +42,7 @@ export default function HowToDrawer() {
             <Typography variant="body1">
               "Legal Jotto words" are five-letter words with no repeating
               letters and that do not end in "s." The computer will select a
-              random legal Jotto word as a target. The user can make guesses
+              random legal Jotto word as a target. You can make guesses
               consisting of other legal Jotto words.
             </Typography>
             <Stack direction="column" alignItems="center" sx={{ py: 3 }}>
@@ -50,21 +50,21 @@ export default function HowToDrawer() {
                 sx={{
                   display: "grid",
                   gridTemplateRows: "repeat(3, 1fr)",
-                  gridTemplateColumns: "120px 1fr",
+                  gridTemplateColumns: "1fr 3fr",
                   margin: "0px auto",
                 }}
               >
-                <Typography variant="letter">BRIBE</Typography>
+                <Typography variant="letterSmall">BRIBE</Typography>
                 <Typography>❌ Not legal - 'B' is repeated</Typography>
-                <Typography variant="letter">BINDS</Typography>
+                <Typography variant="letterSmall">BINDS</Typography>
                 <Typography>❌ Not legal - Ends in 'S'</Typography>
-                <Typography variant="letter">BRIDE</Typography>
+                <Typography variant="letterSmall">BRIDE</Typography>
                 <Typography>✔️ Legal</Typography>
               </Box>
             </Stack>
             <Typography variant="body1">
-              The program will inform the user how many letters are in common
-              between the target word and guess word (independent of position).
+              The program will inform you how many letters are in common between
+              the target word and guess word (independent of position).
             </Typography>
             <Typography variant="body1">
               {"For example, if the target word was "}
@@ -76,22 +76,22 @@ export default function HowToDrawer() {
                 sx={{
                   display: "grid",
                   gridTemplateRows: "repeat(3, 1fr)",
-                  gridTemplateColumns: "120px 180px 1fr",
-                  margin: "0px auto",
+                  gridTemplateColumns: "5fr 7fr 4fr",
+                  py: 3,
                 }}
               >
                 <Typography variant="letter">Guess</Typography>
                 <Typography variant="letter">Overlap</Typography>
                 <Typography variant="letter">Result</Typography>
-                <Typography variant="letter">FLING</Typography>
-                <Typography variant="letter">I</Typography>
-                <Typography variant="letter">1</Typography>
-                <Typography variant="letter">DEBIT</Typography>
-                <Typography variant="letter">D,E,B,I</Typography>
-                <Typography variant="letter">4</Typography>
-                <Typography variant="letter">HASTY</Typography>
-                <Typography variant="letter">-</Typography>
-                <Typography variant="letter">0</Typography>
+                <Typography variant="letterSmall">FLING</Typography>
+                <Typography variant="letterSmall">I</Typography>
+                <Typography variant="letterSmall">1</Typography>
+                <Typography variant="letterSmall">DEBIT</Typography>
+                <Typography variant="letterSmall">D,E,B,I</Typography>
+                <Typography variant="letterSmall">4</Typography>
+                <Typography variant="letterSmall">HASTY</Typography>
+                <Typography variant="letterSmall">-</Typography>
+                <Typography variant="letterSmall">0</Typography>
               </Box>
             </Stack>
             <Typography variant="body1">

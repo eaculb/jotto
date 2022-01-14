@@ -14,17 +14,20 @@ declare module "@mui/material/styles/createTheme" {
 declare module "@mui/material/styles/createTypography" {
   interface Typography {
     letter: React.CSSProperties;
+    letterSmall: React.CSSProperties;
   }
 
   // allow configuration using `createMuiTheme`
   interface TypographyOptions {
     letter?: React.CSSProperties;
+    letterSmall?: React.CSSProperties;
   }
 }
 
 declare module "@mui/material/Typography/Typography" {
   interface TypographyPropsVariantOverrides {
     letter: true;
+    letterSmall: true;
   }
 }
 
@@ -90,6 +93,11 @@ const theme = createTheme({
       fontFamily: "Noto Sans Mono, Roboto Mono, monospace",
       fontWeight: 600,
       fontSize: "1.4rem",
+    },
+    letterSmall: {
+      fontFamily: "Noto Sans Mono, Roboto Mono, monospace",
+      fontWeight: 600,
+      fontSize: "1rem",
     },
   },
   palette: {
