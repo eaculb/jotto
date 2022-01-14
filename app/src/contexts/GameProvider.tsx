@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useMemo } from "react";
 import { range } from "lodash";
 
-import { processGuess, indexFromChar, legalWords } from "src/lib/utils";
+import { processGuess, indexFromChar } from "src/lib/utils";
+import wordList from "src/lib/utils";
 import { useLocalStorage } from "src/lib/useLocalStorage";
 
 export enum Status {
@@ -35,9 +36,9 @@ export interface GameContextValue {
 }
 
 function generateWord() {
-  return legalWords[
-    Math.floor(Math.random() * legalWords.length)
-  ].toUpperCase();
+  return wordList[
+    Math.floor(Math.random() * wordList.length)
+  ].word.toUpperCase();
 }
 
 function useProvideGame(): GameContextValue {
