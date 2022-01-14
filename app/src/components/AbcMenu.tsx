@@ -1,18 +1,15 @@
 import React, { useCallback, useState } from "react";
 
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import AbcIcon from "@mui/icons-material/Abc";
 
-import ExtraControls from "src/components/ExtraControls";
+import Alphabet from "src/components/Alphabet";
 import theme from "src/lib/theme";
 import { DrawerGroupProps } from "src/lib/utils";
 
-export default function MeatballMenu({
-  open,
-  toggle,
-  onClose,
-}: DrawerGroupProps) {
+export default function AbcMenu({ open, toggle, onClose }: DrawerGroupProps) {
   return (
     <>
       <Button
@@ -20,7 +17,7 @@ export default function MeatballMenu({
         onClick={toggle}
         sx={{ display: { xs: "inherit", md: "none" } }}
       >
-        <MoreHorizIcon />
+        <AbcIcon />
       </Button>
       <Drawer
         anchor="top"
@@ -33,7 +30,9 @@ export default function MeatballMenu({
           },
         }}
       >
-        <ExtraControls />
+        <Box sx={{ display: "flex", flexWrap: "wrap", width: "100%" }}>
+          <Alphabet />
+        </Box>
       </Drawer>
     </>
   );

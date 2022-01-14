@@ -129,6 +129,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           minWidth: 0,
+          borderWidth: "2px",
         },
         sizeSmall: {
           height: "32px",

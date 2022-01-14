@@ -36,9 +36,7 @@ export interface GameContextValue {
 }
 
 function generateWord() {
-  return wordList[
-    Math.floor(Math.random() * wordList.length)
-  ].word.toUpperCase();
+  return wordList[Math.floor(Math.random() * wordList.length)].toUpperCase();
 }
 
 function useProvideGame(): GameContextValue {

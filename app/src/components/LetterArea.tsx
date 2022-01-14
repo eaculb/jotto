@@ -1,6 +1,7 @@
 import React from "react";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 
 import Alphabet from "src/components/Alphabet";
@@ -29,7 +30,8 @@ export default function LetterArea() {
           <GuessInput />
           {globalError && <Alert severity="error">{globalError}</Alert>}
         </Grid>
-        <Grid item xs={12} sx={{ px: 2 }}>
+        <Grid item xs={12} sx={{ px: 2, display: { xs: "none", md: "block" } }}>
+          <Divider sx={{ my: { xs: 1, md: 3 } }} />
           <Alphabet />
         </Grid>
       </Grid>

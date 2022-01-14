@@ -17,8 +17,6 @@ interface GuessResult {
   error?: string;
 }
 
-const legalWords = wordList.map((record) => record.word);
-
 export function processGuess(guess: string, target: string): GuessResult {
   if (guess.length !== 5) {
     return {
@@ -26,7 +24,7 @@ export function processGuess(guess: string, target: string): GuessResult {
       error: "Guesses must be 5 letters long.",
     };
   }
-  if (!legalWords.includes(guess.toLowerCase())) {
+  if (!wordList.includes(guess.toLowerCase())) {
     return {
       overlap: -1,
       error: `'${guess}' is not a legal Jotto word. Legal jotto words are English words that do not end in 's' and do not repeat any letters.`,
@@ -46,4 +44,10 @@ export function charFromIndex(i: number) {
 
 export function indexFromChar(char: any) {
   return char.charCodeAt() - ALPHABET_START;
+}
+
+export interface DrawerGroupProps {
+  open: boolean;
+  toggle: () => void;
+  onClose: () => void;
 }

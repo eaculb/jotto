@@ -11,23 +11,22 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Status } from "src/contexts/GameProvider";
 import Letter from "src/components/Letter";
 import theme from "src/lib/theme";
+import { DrawerGroupProps } from "src/lib/utils";
 
-export default function HowToDrawer() {
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-  const toggleDrawer = useCallback(
-    () => setDrawerOpen(!drawerOpen),
-    [drawerOpen, setDrawerOpen]
-  );
-
+export default function HowToDrawer({
+  open,
+  toggle,
+  onClose,
+}: DrawerGroupProps) {
   return (
     <>
-      <Button variant="text" startIcon={<MenuIcon />} onClick={toggleDrawer}>
+      <Button variant="text" startIcon={<MenuIcon />} onClick={toggle}>
         How To Play
       </Button>
       <Drawer
         anchor="top"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
+        open={open}
+        onClose={onClose}
         sx={{
           [`& .MuiDrawer-paper`]: {
             top: theme.appBarHeight,

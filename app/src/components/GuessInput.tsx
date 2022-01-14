@@ -13,6 +13,7 @@ export default function GuessInput() {
     revealed,
     target,
     success,
+    reset,
   }: GameContextValue = useGame();
 
   const [value, setValue] = useState("");
@@ -43,11 +44,21 @@ export default function GuessInput() {
     return (
       <>
         <Typography variant="subtitle1">Success!</Typography>
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          {`You successfully guessed ${target} after `}
-          <Typography variant="letter">{`${guesses.length}`}</Typography>
+        <Typography variant="body1">
+          {`You successfully guessed `}
+          <Typography variant="letter">{target}</Typography>
+          {` after `}
+          <Typography variant="letter">{guesses.length}</Typography>
           {` guesses.`}
         </Typography>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ my: { xs: 1, md: 3 } }}
+          onClick={reset}
+        >
+          Play Again
+        </Button>
       </>
     );
   }

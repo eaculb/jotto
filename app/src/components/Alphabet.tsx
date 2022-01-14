@@ -11,7 +11,6 @@ export default function Alphabet() {
 
   return (
     <>
-      <Divider sx={{ my: { xs: 1, md: 3 } }} />
       {letterStatuses.map((_, ix) => {
         const char = charFromIndex(ix);
         return <Letter changeColor key={char} value={char} />;
