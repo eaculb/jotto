@@ -1,11 +1,15 @@
 import React, { useCallback, useState } from "react";
 
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
+import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 
+import { Status } from "src/contexts/GameProvider";
+import Letter from "src/components/Letter";
 import theme from "src/lib/theme";
 
 export default function HowToDrawer() {
@@ -32,23 +36,102 @@ export default function HowToDrawer() {
           },
         }}
       >
-        <Stack sx={{ px: 3, py: 2 }} spacing={2}>
-          <Typography variant="subtitle1">Rules of Jotto</Typography>
-          <Typography variant="body1">
-            "Legal Jotto words" are five-letter words with no repeating letters
-            and that do not end in "s." The computer will select a random legal
-            Jotto word as a target. The user can make guesses consisting of
-            other legal Jotto words. The program will inform the user how many
-            letters are in common between the target word and guess word
-            (independent of position). The goal is to guess the target word in
-            the least possible number of guesses.
-          </Typography>
-          <Typography variant="subtitle1">Using the Interface</Typography>
-          <Typography variant="body1">
-            Letters can be marked as "sure no" (red) by clicking once and "sure
-            yes" (green) by clicking twice. To reset, click a third time.
-          </Typography>
-        </Stack>
+        <Grid container sx={{ px: 3, py: 2 }} spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Typography variant="subtitle1">Rules of Jotto</Typography>
+            <Typography variant="body1">
+              "Legal Jotto words" are five-letter words with no repeating
+              letters and that do not end in "s." The computer will select a
+              random legal Jotto word as a target. The user can make guesses
+              consisting of other legal Jotto words.
+            </Typography>
+            <Stack direction="column" alignItems="center" sx={{ py: 3 }}>
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateRows: "repeat(3, 1fr)",
+                  gridTemplateColumns: "120px 1fr",
+                  margin: "0px auto",
+                }}
+              >
+                <Typography variant="letter">BRIBE</Typography>
+                <Typography>❌ Not legal - 'B' is repeated</Typography>
+                <Typography variant="letter">BINDS</Typography>
+                <Typography>❌ Not legal - Ends in 'S'</Typography>
+                <Typography variant="letter">BRIDE</Typography>
+                <Typography>✔️ Legal</Typography>
+              </Box>
+            </Stack>
+            <Typography variant="body1">
+              The program will inform the user how many letters are in common
+              between the target word and guess word (independent of position).
+            </Typography>
+            <Typography variant="body1">
+              {"For example, if the target word was "}
+              <Typography variant="letter">BRIDE</Typography>
+              {","}
+            </Typography>
+            <Stack direction="column" alignItems="center" sx={{ py: 3 }}>
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateRows: "repeat(3, 1fr)",
+                  gridTemplateColumns: "120px 180px 1fr",
+                  margin: "0px auto",
+                }}
+              >
+                <Typography variant="letter">Guess</Typography>
+                <Typography variant="letter">Overlap</Typography>
+                <Typography variant="letter">Result</Typography>
+                <Typography variant="letter">FLING</Typography>
+                <Typography variant="letter">I</Typography>
+                <Typography variant="letter">1</Typography>
+                <Typography variant="letter">DEBIT</Typography>
+                <Typography variant="letter">D,E,B,I</Typography>
+                <Typography variant="letter">4</Typography>
+                <Typography variant="letter">HASTY</Typography>
+                <Typography variant="letter">-</Typography>
+                <Typography variant="letter">0</Typography>
+              </Box>
+            </Stack>
+            <Typography variant="body1">
+              The goal is to guess the target word in the least possible number
+              of guesses.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography variant="subtitle1">Using the Interface</Typography>
+            <Typography variant="body1">
+              To cross out a letter, click on it once.
+            </Typography>
+            <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
+              <Letter
+                value="A"
+                forceState={{ guessed: false, status: Status.OUT }}
+              />
+            </Box>
+
+            <Typography variant="body1">
+              To circle a letter, e.g. to confirm it is in the target word,
+              click on it twice.
+            </Typography>
+            <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
+              <Letter
+                value="A"
+                forceState={{ guessed: false, status: Status.IN }}
+              />
+            </Box>
+
+            <Typography variant="body1">
+              Clicking a third time will return a single letter to its unmarked
+              state.
+            </Typography>
+            <Typography variant="body1">
+              You can click "clear annotations" to remove all crosses and
+              circles.
+            </Typography>
+          </Grid>
+        </Grid>
       </Drawer>
     </>
   );

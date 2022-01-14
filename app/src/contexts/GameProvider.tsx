@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useMemo } from "react";
 import { range } from "lodash";
 
 import { processGuess, indexFromChar } from "src/lib/utils";
-import wordList from "src/lib/utils";
+import wordList from "src/lib/legalWords";
 import { useLocalStorage } from "src/lib/useLocalStorage";
 
 export enum Status {

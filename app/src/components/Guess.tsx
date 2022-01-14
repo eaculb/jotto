@@ -20,7 +20,7 @@ export default function Guess({ word, overlapCount }: Props) {
           <Letter key={ix} value={char} />
         ))}
 
-      <Typography sx={{ ml: 3 }}>{overlapCount}</Typography>
+      <Typography sx={{ ml: 3, fontSize: "1.4rem" }}>{overlapCount}</Typography>
     </Stack>
   );
 }

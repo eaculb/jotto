@@ -1,3 +1,5 @@
+import wordList from "./legalWords";
+
 function compareLetters(word1: string, word2: string) {
   var total = 0;
   for (var i = 0; i < word1.length; i++) {
@@ -14,6 +16,8 @@ interface GuessResult {
   overlap: number;
   error?: string;
 }
+
+const legalWords = wordList.map((record) => record.word);
 
 export function processGuess(guess: string, target: string): GuessResult {
   if (guess.length !== 5) {

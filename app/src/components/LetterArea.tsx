@@ -3,7 +3,7 @@ import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-import LetterGroup from "src/components/LetterGroup";
+import Alphabet from "src/components/Alphabet";
 import GuessInput from "src/components/GuessInput";
 import { useGame } from "src/contexts/GameProvider";
 import ExtraControls from "src/components/ExtraControls";
@@ -13,14 +13,10 @@ export default function LetterArea() {
   return (
     <Box
       sx={{
-        width: { xs: "100%", md: "640px" },
+        width: { xs: "100%", md: "540px" },
       }}
     >
       <Grid container>
-        <Grid item xs={12} md={6} sx={{ px: 2 }}>
-          <GuessInput />
-          {globalError && <Alert severity="error">{globalError}</Alert>}
-        </Grid>
         <Grid
           item
           xs={12}
@@ -29,8 +25,13 @@ export default function LetterArea() {
         >
           <ExtraControls />
         </Grid>
-        <LetterGroup title="Unused Letters" shouldBeGuessed={false} />
-        <LetterGroup title="Used Letters" shouldBeGuessed={true} />
+        <Grid item xs={12} md={6} sx={{ px: 2 }}>
+          <GuessInput />
+          {globalError && <Alert severity="error">{globalError}</Alert>}
+        </Grid>
+        <Grid item xs={12} sx={{ px: 2 }}>
+          <Alphabet />
+        </Grid>
       </Grid>
     </Box>
   );

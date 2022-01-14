@@ -53,13 +53,15 @@ export default function GuessInput() {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
+        autoFocus
+        autoComplete="off"
         fullWidth
         hiddenLabel
         id="guess-input"
-        label="Make a guess"
         value={value}
         onChange={handleChange}
         size="small"
+        sx={{ textAlign: "center" }}
       />
       <Button fullWidth sx={{ my: 2 }} type="submit">
         Submit

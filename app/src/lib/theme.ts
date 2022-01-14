@@ -11,6 +11,23 @@ declare module "@mui/material/styles/createTheme" {
   }
 }
 
+declare module "@mui/material/styles/createTypography" {
+  interface Typography {
+    letter: React.CSSProperties;
+  }
+
+  // allow configuration using `createMuiTheme`
+  interface TypographyOptions {
+    letter?: React.CSSProperties;
+  }
+}
+
+declare module "@mui/material/Typography/Typography" {
+  interface TypographyPropsVariantOverrides {
+    letter: true;
+  }
+}
+
 const theme = createTheme({
   typography: {
     h1: {
@@ -44,12 +61,12 @@ const theme = createTheme({
       fontSize: "1.4rem",
     },
     subtitle1: {
-      // fontFamily: "Crimson Text, serif",
+      fontFamily: "Noto Sans Mono, Roboto Mono, monospace",
       fontWeight: 600,
-      fontSize: "1.4rem",
+      fontSize: "1.6rem",
     },
     subtitle2: {
-      // fontFamily: "Crimson Text, serif",
+      fontFamily: "Noto Sans Mono, Roboto Mono, monospace",
       fontWeight: 600,
       fontSize: "1.2rem",
     },
@@ -68,6 +85,11 @@ const theme = createTheme({
       fontWeight: 400,
       fontSize: "1rem",
       textTransform: "none",
+    },
+    letter: {
+      fontFamily: "Noto Sans Mono, Roboto Mono, monospace",
+      fontWeight: 600,
+      fontSize: "1.4rem",
     },
   },
   palette: {
@@ -114,6 +136,13 @@ const theme = createTheme({
     MuiLink: {
       defaultProps: {
         underline: "hover",
+      },
+    },
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          height: "40px",
+        },
       },
     },
   },
