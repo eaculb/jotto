@@ -44,7 +44,9 @@ export default function GuessInput() {
       <>
         <Typography variant="subtitle1">Success!</Typography>
         <Typography variant="body1" sx={{ mb: 3 }}>
-          {`You successfully guessed ${target} after ${guesses.length} guesses.`}
+          {`You successfully guessed ${target} after `}
+          <Typography variant="letter">{`${guesses.length}`}</Typography>
+          {` guesses.`}
         </Typography>
       </>
     );
