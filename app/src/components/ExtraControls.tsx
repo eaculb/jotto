@@ -30,7 +30,7 @@ export default function ExtraControls() {
         </Button>
       ) : (
         <Button variant="contained" fullWidth sx={{ mb: 2 }} onClick={reset}>
-          Reset
+          {success ? "Play Again" : "Reset"}
         </Button>
       )}
     </Stack>

@@ -54,7 +54,7 @@ export default function GuessInput() {
         <Button
           variant="contained"
           fullWidth
-          sx={{ my: { xs: 1, md: 3 } }}
+          sx={{ display: { xs: "block", md: "none" }, my: 1 }}
           onClick={reset}
         >
           Play Again
