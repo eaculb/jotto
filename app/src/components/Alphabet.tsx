@@ -1,7 +1,5 @@
 import React from "react";
 
-import Divider from "@mui/material/Divider";
-
 import Letter from "src/components/Letter";
 import { useGame } from "src/contexts/GameProvider";
 import { charFromIndex } from "src/lib/utils";
