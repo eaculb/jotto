@@ -18,7 +18,7 @@ export default function GuessInput() {
 
   const [value, setValue] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setValue(event.target.value.toUpperCase());
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
